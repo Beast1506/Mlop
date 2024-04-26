@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>INR to USD Converter</title>
+    <style>
+        /* Basic styling for the converter */
+        .converter {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .converter input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100px;
+            text-align: right;
+        }
+
+        .converter button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .converter button:hover {
+            background-color: #45a049;
+        }
+
+        .converter .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="converter">
+    <h2>INR to USD Converter</h2>
+    <input type="number" id="inr" placeholder="INR" step="any" />
+    <button onclick="convert()">Convert</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function convert() {
+        const inr = document.getElementById("inr").value;
+        const exchangeRate = 0.012; // Sample rate: 1 INR = 0.012 USD
+        const usd = (inr * exchangeRate).toFixed(2);
+        document.getElementById("result").innerText = inr + " INR = " + usd + " USD";
+    }
+</script>
+
+</body>
+</html>
