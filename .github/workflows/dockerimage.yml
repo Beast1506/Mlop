@@ -12,7 +12,7 @@ jobs:
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4  # Check out the repository code
+      uses: actions/checkout@v4  # Checkout the repository code
     
     - name: Docker Login  # Securely log in to Docker Hub
       run: |
@@ -20,14 +20,14 @@ jobs:
         -u "${{ secrets.DOCKER_HUB_USERNAME }}" \
         --password-stdin
     
-    - name: Build Docker Image
+    - name: Build Docker Image  # Build the Docker image from the Dockerfile
       run: |
-        docker build -t my-docker-image:latest .  # Build the Docker image from the root context
+        docker build -t my-nginx-image:latest .  # Build the Docker image from the current context
     
-    - name: Tag Docker Image  # Tag the built image with the Docker Hub repository
+    - name: Tag Docker Image  # Tag the Docker image with Docker Hub details
       run: |
-        docker tag my-docker-image:latest "${{ secrets.DOCKER_HUB_USERNAME }}/my-docker-image:latest"
+        docker tag my-nginx-image:latest "${{ secrets.DOCKER_HUB_USERNAME }}/my-nginx-image:latest"  # Correctly tag
     
-    - name: Push Docker Image  # Push the image to Docker Hub
+    - name: Push Docker Image  # Push the tagged image to Docker Hub
       run: |
-        docker push "${{ secrets.DOCKER_HUB_USERNAME }}/my-docker-image:latest"
+        docker push "${{ secrets.DOCKER_HUB_USERNAME }}/my-nginx-image:latest"  # Push to Docker Hub
