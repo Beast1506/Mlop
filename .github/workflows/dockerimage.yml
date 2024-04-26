@@ -1,0 +1,33 @@
+name: Build and Push Docker Image  # Workflow name
+
+on:
+  push:
+    branches: [ "main" ]  # Trigger on pushes to 'main'
+  pull_request:
+    branches: [ "main" ]  # Trigger on pull requests to 'main'
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4  # Check out the repository code
+    
+    - name: Docker Login  # Login to Docker Hub
+      run: |
+        echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login \
+        -u "${{ secrets.DOCKER_HUB_USERNAME }}" \
+        --password-stdin
+
+    - name: Build Docker Image
+      run: |
+        docker build -t my-docker-image:latest .  # Build the Docker image from the current context
+    
+    - name: Tag Docker Image  # Tag the image with Docker Hub details
+      run: |
+        docker tag my-docker-image:latest beast1506/my-docker-image:latest  # Tag with Docker Hub username/repo
+
+    - name: Push Docker Image to Docker Hub
+      run: |
+        docker push beast1506/my-docker-image:latest  # Push the image to Docker Hub
