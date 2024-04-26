@@ -2,7 +2,7 @@
 FROM nginx:latest
 
 # Copy the HTML, CSS, and JavaScript files to the default Nginx HTML directory
-COPY ./public /usr/share/nginx/html
+COPY index.html /usr/share/nginx/html
 
 # Expose port 80 for HTTP traffic
 EXPOSE 80
