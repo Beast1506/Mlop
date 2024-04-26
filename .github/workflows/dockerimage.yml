@@ -1,33 +1,24 @@
-name: Build and Push Docker Image  # Workflow name
+name: Docker Build and Push
 
 on:
   push:
-    branches: [ "main" ]  # Trigger on pushes to 'main'
-  pull_request:
-    branches: [ "main" ]  # Trigger on pull requests to 'main'
+    branches:
+      - main  # adjust branch as needed
 
 jobs:
   build_and_push:
-    runs-on: ubuntu-latest  # Latest Ubuntu environment
-    
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+   
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4  # Checkout the code
-    
-    - name: Docker Login
-      run: |
-        echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login \
-        -u "${{ secrets.DOCKER_HUB_USERNAME }}" \
-        --password-stdin
-    
-    - name: Build Docker Image
-      run: |
-        docker build -t my-nginx-image:latest .  # Build the Docker image
-    
-    - name: Tag Docker Image
-      run: |
-        docker tag my-nginx-image:latest "${{ secrets.DOCKER_HUB_USERNAME }}/my-nginx-image:latest"  # Correct format
-    
-    - name: Push Docker Image  # Push the tagged image to Docker Hub
-      run: |
-        docker push "${{ secrets.DOCKER_HUB_USERNAME }}/my-nginx-image:latest"
+      uses: actions/checkout@v2
+     
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u beast1506 --password-stdin
+   
+    - name: Build Docker image
+      run: docker build -t beast1506/mlop:latest .
+     
+    - name: Push Docker image to Docker Hub
+      run: docker push beast1506/mlop:latest
