@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
      
     - name: Login to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u beast1506 --password-stdin
+      run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u beast1506 --password-stdin
    
     - name: Build Docker image
       run: docker build -t beast1506/mlop:latest .
